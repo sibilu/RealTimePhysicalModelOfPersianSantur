@@ -20,14 +20,17 @@ class SanturString {
     
     ~SanturString();
     
-    
-    void getString();
     void setPluckLoc(double pluckLoc);
     void exciteHann();
     void exciteTri();
     void processScheme();
     void updateStates();
     double getOutput(double outPos);
+    
+    void setDamping(double newDamping);
+    void setTension(double newTension);
+    void updateCoefficientsBrass();
+    void updateCoefficientsSteel();
 
     
     

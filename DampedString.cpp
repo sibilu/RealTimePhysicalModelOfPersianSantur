@@ -6,7 +6,6 @@ DampedString::DampedString(){}
 
 DampedString::DampedString(NamedValueSet& parameters, double k) :
 stringLength (*parameters.getVarPointer ("stringLength")),
-//stringDiameter(*parameters.getVarPointer("stringDiameter")),
 s0 (*parameters.getVarPointer ("s0")),
 s1 (*parameters.getVarPointer ("s1")),
 tension (*parameters.getVarPointer ("tension")),
@@ -33,10 +32,10 @@ k (k)
     uPrev.resize(N+1);
     uNext.resize(N+1);
     
-    width = truncatePositiveToUnsignedInt(N/8);
     stringPluckRatio = 0.5;                   // 0 - 1
     
     pluckLoc = truncatePositiveToUnsignedInt(stringPluckRatio*N);
+    endNode = N-1;
 }
 
 // Destructor
@@ -67,10 +66,6 @@ double DampedString::getOutput(double outPos) {
     return uNext[(round(N+1) * outPos)];
 }
 
-void DampedString::setFs(double Fs){
-    this->fs = Fs;
-}
-
 void DampedString::setPluckLoc(double pluckLoc) {
     this->pluckLoc = (round(N+1) * pluckLoc);
 }
@@ -83,16 +78,24 @@ void DampedString::setDamping(double s1) {
     this->s1 = s1;
 }
 
-void DampedString::setE(double newE) {
-    this-> E = newE;
-}
-
 void DampedString::setTension(double newTension) {
     this->tension = newTension;
 }
 
 
-void DampedString::updateCoefficients() {
+void DampedString::updateCoefficientsBrass() {
+    c = sqrt(tension/(p*A));
+    kappa = sqrt((E*I)/p*A);
+    h = sqrt((c * c * k * k + 4.0 * s1 * k
+             + sqrt (pow (c * c * k * k + 4.0 * s1 * k, 2.0)
+                    + 16.0 * kappa * kappa * k * k)) * 0.5);
+    N = truncatePositiveToUnsignedInt(stringLength / h);
+    h = stringLength / N;
+    lambdaSq = (c*c*k*k)/(h*h);
+    muSq = (kappa*kappa*k*k)/pow(h,4);
+}
+
+void DampedString::updateCoefficientsSteel() {
     c = sqrt(tension/(p*A));
     kappa = sqrt((E*I)/p*A);
     h = sqrt((c * c * k * k + 4.0 * s1 * k
@@ -105,6 +108,7 @@ void DampedString::updateCoefficients() {
 }
 
 void DampedString::exciteHann() {
+    width = 10;
     for (int j = 0; j < width; j++) {
         double hann = 0.5 * (1 - cos(2*double_Pi*j/(width-1)));
         u[j+pluckLoc] = hann;
@@ -113,6 +117,7 @@ void DampedString::exciteHann() {
 }
 
 void DampedString::exciteTri() {
+    width = 10;
     for (int j = 0; j < width; j++) {
         if(j <= width && j >= ((width+1)/2)) {
             u[j+pluckLoc] = 2 - ((2*j)/(width + 1));

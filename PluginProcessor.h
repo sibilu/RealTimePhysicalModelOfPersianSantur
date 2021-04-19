@@ -57,57 +57,42 @@ public:
     
     float limit(float input, float min, float max);
     
-    void updateCoefficients();
+    
     void updateStringClassCoefficients();
-    
-    
-    double getKappa();
-    void setKappa(double newKappa);
+
     void setS1(double newS1);
     void setPluckLoc(float pluckLoc);
     void setOutPosition(double newOutPos);
-    double getN();
-    double getStringLength();
     void setTension(double newTension);
-    
-    double getE();
-    void setE(double newE);
+
 
     
     double stringLength = 0.5;
     double B = 0.00031;
     bool mousePressed, playOnce;
-    double currentSample;
     int excitationSelection;
-//    juce::AudioParameterFloat outputPositionParameter;
-    AudioParameterFloat* outPutParam;
 
 private:
     //==============================================================================
     
     
-    double fs, f0, c, k, s0, s1, h, N, lambdaSq, muSq, pluckLoc, stringPluckRatio, kappa;
+    double c, k, s0, s1, h, N, lambdaSq, muSq, pluckLoc, stringPluckRatio, kappa;
 
 
-    double width, excitationRange, outPos;
-     std::vector<double> u, uPrev, uNext;
-        double sampleRate = 44100;
-        int expectedSamplesPerBlock = 0;
-        juce::Random random;
+    double width, outPos;
+    std::vector<double> u, uPrev, uNext;
     
-    double damp, stiffness, tension, stringDiameter, stringRadius, p, A, Ebrass, Esteel, I;
+    double damp, stiffness, stringDiameter, stringRadius, p, A, Ebrass, Esteel, I;
     
+    double pBrass, ABrass, IBrass, pSteel, ASteel, ISteel;
     
-    int noStrings;
-    
-//    AutoString string1, string2;
-    
-//    std::vector<double> stringCollection;
-    
-//    std::unique_ptr<DampedString> string1;
-//    std::unique_ptr<DampedString> string2;
-    
-    SanturString santurString1;
+    // These tension values have to be declared for each string pointer individually at this point
+    double aBrassTension, aSteelTension, dBrassSharpTension;
+ 
+    // Initialise the string pointers
+    std::unique_ptr<SanturString> aBrass;
+    std::unique_ptr<SanturString> aSteel;
+
     
     
 
