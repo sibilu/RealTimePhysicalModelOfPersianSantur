@@ -12,7 +12,7 @@
 
 SanturString::SanturString(){}
 
-SanturString::SanturString(double stringLength, double s0, double s1, double tension, double p, double A, double E, double I, double r, double k){
+SanturString::SanturString(double stringLength, double s0, double s1, double tension, double p, double A, double E, double I, double r, double sampleRate){
     
     NamedValueSet parameters, parameters2, parameters3, parameters4;
     
@@ -52,6 +52,8 @@ SanturString::SanturString(double stringLength, double s0, double s1, double ten
     parameters4.set("s0", s0);                               // Frequency-independent damping
     parameters4.set("s1",  s1);
     
+    
+    k = stringLength / sampleRate;              // Time-step
     string1 = std::make_unique<DampedString>(parameters, k);
     string2 = std::make_unique<DampedString>(parameters2, k);
     string3 = std::make_unique<DampedString>(parameters3, k);

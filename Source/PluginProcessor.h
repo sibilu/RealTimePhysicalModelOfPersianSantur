@@ -71,6 +71,7 @@ public:
     double B = 0.00031;
     bool mousePressed, playOnce;
     int excitationSelection;
+    int fs;
 
 private:
     //==============================================================================
@@ -92,10 +93,12 @@ private:
     // Initialise the string pointers
     std::unique_ptr<SanturString> aBrass;
     std::unique_ptr<SanturString> aSteel;
+    std::unique_ptr<SanturString> dBrassSharp;
 
     
     bool playAbrass = false;
     bool playAsteel = false;
+    bool playDBrassSharp = false;
     
     
 

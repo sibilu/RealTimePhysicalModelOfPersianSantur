@@ -32,10 +32,11 @@ class SanturString {
     void updateCoefficientsBrass();
     void updateCoefficientsSteel();
 
-    
+    double k;
     
     
     private:
+    
     
     std::unique_ptr<DampedString> string1;
     std::unique_ptr<DampedString> string2;

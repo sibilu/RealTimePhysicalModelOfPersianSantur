@@ -38,6 +38,7 @@ public:
     
     double getOutput(double outPos);
     
+    std::vector<std::vector<double>> uStates;
     std::vector<double> u, uPrev, uNext;
     std::vector<double*> uPtr;
 private:
@@ -53,6 +54,8 @@ private:
     double hammerStiffness = 2;
     int hammerNonLinearStiffness = 2;
     double hammerDistance = 0.5;
+    
+    double A1, A2, A3, A4, A5, B1, B2, D;
     
 };
 

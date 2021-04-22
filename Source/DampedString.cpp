@@ -28,38 +28,76 @@ k (k)
     lambdaSq = (c*c*k*k)/(h*h);
     muSq = (kappa*kappa*k*k)/pow(h,4);
     
-    u.resize(N+1);
-    uPrev.resize(N+1);
-    uNext.resize(N+1);
     
+    uStates.reserve(3);
+    
+    for(int i = 0; i < 3; ++i) {
+        uStates.push_back(std::vector<double>(N+1, 0));
+    }
+    
+    uPtr.resize(3);
+    
+    for(int i = 0; i < 3; ++i) {
+        uPtr[i] = &uStates[i][0];
+    }
+    
+//    u.resize(N+1);
+//    uPrev.resize(N+1);
+//    uNext.resize(N+1);
+//
     stringPluckRatio = 0.5;                   // 0 - 1
     
     pluckLoc = truncatePositiveToUnsignedInt(stringPluckRatio*N);
     endNode = N-1;
+    
+  B1 = s0 * k;
+  B2 = (2.0 * s1 * k) / (h * h);
+  
+  A1 = 2.0 - 2.0 * lambdaSq - 6.0 * muSq - 2.0 * B2; // u_l^n
+  A2 = lambdaSq + 4.0 * muSq + B2;                   // u_{l+-1}^n
+  A3 = -muSq;                                        // u_{l+-2}^n
+  A4 = B1 - 1.0 + 2.0 * B2;                          // u_l^{n-1}
+  A5 = -B2;                                          // u_{l+-1}^{n-1}
+  
+  D = 1.0 / (1.0 + s0 * k);                      // u_l^{n+1}
+  
+  // Divide by u_l^{n+1} term
+  A1 *= D;
+  A2 *= D;
+  A3 *= D;
+  A4 *= D;
+  A5 *= D;
+    
+    
 }
 
 // Destructor
 DampedString::~DampedString(){
 }
-
+/*          - n = 0 is u^{n+1},
+            - n = 1 is u^n, and
+            - n = 2 is u^{n-1}.
+ */
 void DampedString::processScheme() {
     for (int l = startNode; l < N-1; ++l) {
-        damp = (s0 * k * uPrev[l]) + (((2.0 * s1 * k)/(h*h) * (u[l+1] - 2.0 * u[l] + u[l-1] - uPrev[l+1] + 2.0 * uPrev[l] - uPrev[l-1])));
-        stiffness = muSq * (u[l+2] - 4.0 * u[l+1] + 6.0 * u[l] - 4.0 * u[l-1] + u[l-2]);
+        damp = (B1 * uPtr[2][l]) + ((B2 * (uPtr[1][l+1] - 2.0 * uPtr[1][l] + uPtr[1][l-1] - uPtr[2][l+1] + 2.0 * uPtr[2][l] - uPtr[2][l-1])));
+        stiffness = muSq * (uPtr[1][l+2] - 4.0 * uPtr[1][l+1] + 6.0 * uPtr[1][l] - 4.0 * uPtr[1][l-1] + uPtr[1][l-2]);
             
-        uNext[l] = 1.0/(1.0 + s0 * k) * (2.0 * u[l] - uPrev[l] + lambdaSq * (u[l-1] - 2.0 * u[l] + u[l+1])) - stiffness + damp;
+        uPtr[0][l] = D * (2.0 * uPtr[1][l] - uPtr[2][l] + lambdaSq * (uPtr[1][l-1] - 2.0 * uPtr[1][l] + uPtr[1][l+1])) - stiffness + damp;
             
-        uNext[startNode - 2] = 0;
-        uNext[startNode - 1] = 0;
-        uNext[endNode + 1] = 0;
-        uNext[endNode + 2] = 0;
+        uPtr[1][static_cast<int>(startNode - 2)] = 0;
+        uPtr[1][static_cast<int>(startNode - 1)] = 0;
+        uPtr[1][static_cast<int>(endNode + 1)] = 0;
+        uPtr[1][static_cast<int>(endNode + 2)] = 0;
         
     }
 }
 
 void DampedString::updateStates() {
-    uPrev = u;
-    u = uNext;
+    double* uTmp = uPtr[2];
+    uPtr[2] = uPtr[1];
+    uPtr[1] = uPtr[0];
+    uPtr[0] = uTmp;
 }
 
 void DampedString::updateMass() {
@@ -70,7 +108,7 @@ void DampedString::updateMass() {
 }
 
 double DampedString::getOutput(double outPos) {
-    return uNext[(round(N+1) * outPos)];
+    return uPtr[0][static_cast<int>(round(N+1) * outPos)];
 }
 
 void DampedString::setPluckLoc(double pluckLoc) {
@@ -118,8 +156,8 @@ void DampedString::exciteHann() {
     width = 10;
     for (int j = 0; j < width; ++j) {
         double hann = 0.5 * (1 - cos(2*double_Pi*j/(width-1)));
-        u[j+pluckLoc] = hann;
-        uPrev[j+pluckLoc] = hann;
+        uPtr[1][static_cast<int>(j+pluckLoc)] = hann;
+        uPtr[2][static_cast<int>(j+pluckLoc)] = hann;
       }
 }
 
@@ -127,11 +165,11 @@ void DampedString::exciteTri() {
     width = 10;
     for (int j = 0; j < width; ++j) {
         if(j <= width && j >= ((width+1)/2)) {
-            u[j+pluckLoc] = 2 - ((2*j)/(width + 1));
-            uPrev[j+pluckLoc] = 2 - ((2*j)/(width + 1));
+            uPtr[1][static_cast<int>(j+pluckLoc)] = 2 - ((2*j)/(width + 1));
+            uPtr[2][static_cast<int>(j+pluckLoc)] = 2 - ((2*j)/(width + 1));
             } else {
-                u[j+pluckLoc] = (2*j)/(width+1);
-                uPrev[j+pluckLoc] = (2*j)/(width+1);
+                uPtr[1][static_cast<int>(j+pluckLoc)] = (2*j)/(width+1);
+                uPtr[2][static_cast<int>(j+pluckLoc)] = (2*j)/(width+1);
             }
     }
 }
@@ -139,8 +177,8 @@ void DampedString::exciteTri() {
 void DampedString::exciteHammer() {
     width = 10;
     for (int j = 0; j < width; ++j) {
-        u[j+pluckLoc];
-        uPrev[j+pluckLoc];
+        uPtr[1][static_cast<int>(j+pluckLoc)];
+        uPtr[2][static_cast<int>(j+pluckLoc)];
     }
 }
 
