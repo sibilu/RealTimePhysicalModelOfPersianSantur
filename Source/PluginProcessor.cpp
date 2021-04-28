@@ -100,17 +100,16 @@ void SanturTestAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
     aBrassTension = 17311.f;
     aSteelTension = 34622.f;
     
-    dBrassSharpTension = 5007.f;
+    dBrassSharpTension = 2817.f;
     
     Ebrass = 113500000000;
     Esteel = 180000000000;
     pBrass = 8600;
     pSteel = 7700;
     
-    double rBrass = (pow(4,0.25)*pow(B,0.25)*pow(aBrassTension,0.25)*pow(stringLength,0.5))/(pow(double_Pi,0.25)*pow(Ebrass,0.25));
+    double rBrass = (pow(4,0.25)*pow(B,0.25)*pow(stringTensions[0],0.25)*pow(stringLength,0.5))/(pow(double_Pi,0.25)*pow(Ebrass,0.25));
     
     double rSteel = (pow(4,0.25)*pow(B,0.25)*pow(aSteelTension,0.25)*pow(stringLength,0.5))/(pow(double_Pi,0.25)*pow(Esteel,0.25));
-    
     
     ABrass = double_Pi * (rBrass * rBrass);
     ASteel = double_Pi * (rSteel * rSteel);
@@ -121,13 +120,12 @@ void SanturTestAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
     s0 = 1.2f;
     s1 = 0.00015f;
     
-    fs = getSampleRate();
+    fs = sampleRate;
+//    k = stringLength / sampleRate;              // Time-step
     
     // Initialise the string pointers with appropriate values
-    aBrass = std::make_unique<SanturString>(stringLength, s0, s1, aBrassTension, pBrass, ABrass, Ebrass, IBrass, rBrass, fs);
-    aSteel = std::make_unique<SanturString>(stringLength, s0, s1, aSteelTension, pSteel, ASteel, Esteel, ISteel, rSteel, fs);
-    
-    dBrassSharp = std::make_unique<SanturString>(stringLength, s0, s1, dBrassSharpTension, pBrass, ABrass, Ebrass, IBrass, rBrass, fs);
+    dSharpLow51 = std::make_unique<SanturString>(stringLength, s0, s1, aBrassTension, pBrass, ABrass, Ebrass, IBrass, rBrass, fs);
+//    aSteel = std::make_unique<SanturString>(stringLength, s0, s1, aSteelTension, pSteel, ASteel, Esteel, ISteel, rSteel, k);
     
         
     DBG("sample rate:");
@@ -175,7 +173,7 @@ void SanturTestAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
 
     MidiBuffer processMidi;
     
-    double stringOut1, stringOut2, stringOut3, out;
+    double stringOut1, stringOut2, out;
     
     
     for (const auto metadata : midiMessages) {
@@ -186,67 +184,51 @@ void SanturTestAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
 
         } else if (message.isNoteOn() && message.getNoteNumber() == 52){
             playAsteel = true;
-        } else if (message.isNoteOn() && message.getNoteNumber() == 53) {
-            playDBrassSharp = true;
-        }
-        
-        if(message.isNoteOff()) {
+        } if(message.isNoteOff()) {
             playOnce = false;
             playAbrass = false;
             playAsteel = false;
-            playDBrassSharp = false;
         }
     }
 
     
-    if (playAbrass){
+    if ((mousePressed == true && playOnce == true) || playAbrass){
 //        DBG("aSteelTension");
 //        DBG(aSteelTension);
             if(excitationSelection == 1) {
-                aBrass->setPluckLoc(pluckLoc);
+                dSharpLow51->setPluckLoc(pluckLoc);
 //                aSteel->setPluckLoc(pluckLoc);
                 
-                aBrass->exciteHann();
+                dSharpLow51->exciteHann();
 //                aSteel->exciteHann();
 
             }
             else if(excitationSelection == 2) {
-                aBrass->setPluckLoc(pluckLoc);
+                dSharpLow51->setPluckLoc(pluckLoc);
 //                aSteel->setPluckLoc(pluckLoc);
                 
-                aBrass->exciteTri();
+                dSharpLow51->exciteTri();
 //                aSteel->exciteTri();
 
                 }
             playOnce = false;
         }
     
-        if (playAsteel){
+        if ((mousePressed == true && playOnce == true) || playAsteel){
 //            DBG("aSteelTension");
 //            DBG(aSteelTension);
                 if(excitationSelection == 1) {
-                    aSteel->setPluckLoc(pluckLoc);
-                    aSteel->exciteHann();
+//                    aSteel->setPluckLoc(pluckLoc);
+//                    aSteel->exciteHann();
 
                 }
                 else if(excitationSelection == 2) {
-                    aSteel->setPluckLoc(pluckLoc);
-                    aSteel->exciteTri();
+//                    aSteel->setPluckLoc(pluckLoc);
+//                    aSteel->exciteTri();
 
                     }
                 playOnce = false;
             }
-    
-    if (playDBrassSharp) {
-        if (excitationSelection == 1) {
-            dBrassSharp->setPluckLoc(pluckLoc);
-            dBrassSharp->exciteHann();
-        } else if (excitationSelection == 2){
-            dBrassSharp->setPluckLoc(pluckLoc);
-            dBrassSharp->exciteTri();
-        }
-        playOnce = false;
-    }
     
     
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
@@ -257,24 +239,19 @@ void SanturTestAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
         float* const channelData1 = buffer.getWritePointer(0);
         float* const channelData2 = buffer.getWritePointer(1);
             for (int i = 0; i < buffer.getNumSamples(); ++i) {
-                aBrass->processScheme();
-                aBrass->updateStates();
+                dSharpLow51->processScheme();
+                dSharpLow51->updateStates();
 
-                aSteel->processScheme();
-                aSteel->updateStates();
-                
-                dBrassSharp->processScheme();
-                dBrassSharp->updateStates();
+//                aSteel->processScheme();
+//                aSteel->updateStates();
 
-                stringOut1 = aBrass->getOutput(outPos);
-                stringOut2 = aSteel->getOutput(outPos);
-                stringOut3 = dBrassSharp->getOutput(outPos);
+                stringOut1 = dSharpLow51->getOutput(outPos);
+//                stringOut2 = aSteel->getOutput(outPos);
                 
-                
-                out = (stringOut1 + stringOut2 + stringOut3) * 0.33;
+//                out = (stringOut1 + stringOut2) * 0.5;
 
-                channelData1[i] = limit(out, -1.f, 1.f);
-                channelData2[i] = limit(out, -1.f, 1.f);
+                channelData1[i] = limit(stringOut1, -1.f, 1.f);
+                channelData2[i] = limit(stringOut1, -1.f, 1.f);
             }
 }
 
@@ -306,17 +283,14 @@ void SanturTestAudioProcessor::setStateInformation (const void* data, int sizeIn
 
 void SanturTestAudioProcessor::updateStringClassCoefficients() {
 
-    aBrass->setDamping(s1);
-    aSteel->setDamping(s1);
-    dBrassSharp->setDamping(s1);
+    dSharpLow51->setDamping(s1);
+//    aSteel->setDamping(s1);
 
-    aBrass->setTension(aBrassTension);
-    aSteel->setTension(aSteelTension);
-    dBrassSharp->setTension(dBrassSharpTension);
+    dSharpLow51->setTension(aBrassTension);
+//    aSteel->setTension(aSteelTension);
 
-    aBrass->updateCoefficientsBrass();
-    aSteel->updateCoefficientsSteel();
-    dBrassSharp->updateCoefficientsBrass();
+    dSharpLow51->updateCoefficientsBrass();
+//    aSteel->updateCoefficientsSteel();
 
 }
 

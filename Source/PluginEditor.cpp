@@ -153,7 +153,7 @@ void SanturTestAudioProcessorEditor::resized()
     outputPosLabel.setColour(Label::textColourId, Colour(juce::Colours::black));
     addAndMakeVisible(outputPosLabel);
     
-//    // TENSION SLIDER
+    // TENSION SLIDER
 //    tensionSlider.addListener(this);
 //    tensionSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
 //    tensionSlider.setColour(Slider::rotarySliderFillColourId, Colour(18,18,17));
@@ -164,7 +164,7 @@ void SanturTestAudioProcessorEditor::resized()
 //    tensionSlider.setRange(1.0, 80000.0, 1.f);
 //    tensionSlider.setColour(Slider::textBoxTextColourId, Colour(18,18,17));
 //    tensionSlider.setColour(Slider::textBoxOutlineColourId, Colour(255,255,247));
-//    tensionSlider.setValue(17311.f);
+//    tensionSlider.setValue(5000.f);
 //    addAndMakeVisible(tensionSlider);
 //
 //    tensionLabel.setText("Tension", dontSendNotification);
@@ -172,7 +172,7 @@ void SanturTestAudioProcessorEditor::resized()
 //    tensionLabel.setJustificationType(Justification::centred);
 //    tensionLabel.setColour(Label::textColourId, Colour(juce::Colours::black));
 //    addAndMakeVisible(tensionLabel);
-    
+//    
 //    EXCITATION MENU
     
     excitationMenu.setBounds(570, 280, 100, 20);

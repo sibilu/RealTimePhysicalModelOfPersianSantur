@@ -91,14 +91,31 @@ private:
     double aBrassTension, aSteelTension, dBrassSharpTension;
  
     // Initialise the string pointers
-    std::unique_ptr<SanturString> aBrass;
-    std::unique_ptr<SanturString> aSteel;
-    std::unique_ptr<SanturString> dBrassSharp;
+    std::unique_ptr<SanturString> dSharpLow51;
+    std::unique_ptr<SanturString> d62;
+    std::unique_ptr<SanturString> fLow53;
+    std::unique_ptr<SanturString> f65;
+    std::unique_ptr<SanturString> gLow55;
+    std::unique_ptr<SanturString> g67;
+    std::unique_ptr<SanturString> aLow57;
+    std::unique_ptr<SanturString> a69;
+    std::unique_ptr<SanturString> aSharpLow58;
+    std::unique_ptr<SanturString> aSharp70;
+    std::unique_ptr<SanturString> cLow60;
+    std::unique_ptr<SanturString> c72;
+    std::unique_ptr<SanturString> dlow62;
+    std::unique_ptr<SanturString> d74;
+    std::unique_ptr<SanturString> dSharpLow63;
+    std::unique_ptr<SanturString> dSharp75;
+    std::unique_ptr<SanturString> fLow65;
+    std::unique_ptr<SanturString> f77;
 
     
     bool playAbrass = false;
     bool playAsteel = false;
     bool playDBrassSharp = false;
+    
+    std::vector<double> stringTensions{2299.5109, 9063.3346, 3032.40978, 12734.7204,3931.66534, 15931.5895, 5036.77625, 19903.8497, 22239.9255, 22239.9255, 7194.77901, 27757.4324, 9063.3346, 34635.6634, 10158.8033, 38690.168, 12734.7204, 48282.3454};
     
     
 
