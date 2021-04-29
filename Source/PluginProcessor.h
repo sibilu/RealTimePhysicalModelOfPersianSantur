@@ -67,7 +67,7 @@ public:
 
 
     
-    double stringLength = 0.5;
+    double stringLength = 0.5f;
     double B = 0.00031;
     bool mousePressed, playOnce;
     int excitationSelection;
@@ -81,14 +81,13 @@ private:
 
 
     double width, outPos;
-    std::vector<double> u, uPrev, uNext;
     
     double damp, stiffness, stringDiameter, stringRadius, p, A, Ebrass, Esteel, I;
     
     double pBrass, ABrass, IBrass, pSteel, ASteel, ISteel;
     
     // These tension values have to be declared for each string pointer individually at this point
-    double aBrassTension, aSteelTension, dBrassSharpTension;
+    double aTension, bTension, cTension;
  
     // Initialise the string pointers
     std::unique_ptr<SanturString> dSharpLow51;
@@ -109,6 +108,7 @@ private:
     std::unique_ptr<SanturString> dSharp75;
     std::unique_ptr<SanturString> fLow65;
     std::unique_ptr<SanturString> f77;
+    
 
     
     bool playAbrass = false;
@@ -117,7 +117,13 @@ private:
     
     std::vector<double> stringTensions{2299.5109, 9063.3346, 3032.40978, 12734.7204,3931.66534, 15931.5895, 5036.77625, 19903.8497, 22239.9255, 22239.9255, 7194.77901, 27757.4324, 9063.3346, 34635.6634, 10158.8033, 38690.168, 12734.7204, 48282.3454};
     
+    std::vector<int> midiValues{51, 62, 53, 65, 55, 67, 57, 69, 58, 70, 60, 72, 62, 74, 63, 75, 65, 77};
     
+    std::vector<bool> playNote{false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
+    
+    double stringOut1, stringOut2, stringOut3, mainOut;
+
+
 
     
     

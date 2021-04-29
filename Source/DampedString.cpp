@@ -80,15 +80,18 @@ DampedString::~DampedString(){
  */
 void DampedString::processScheme() {
     for (int l = startNode; l < N-1; ++l) {
-        damp = (B1 * uPtr[2][l]) + ((B2 * (uPtr[1][l+1] - 2.0 * uPtr[1][l] + uPtr[1][l-1] - uPtr[2][l+1] + 2.0 * uPtr[2][l] - uPtr[2][l-1])));
-        stiffness = muSq * (uPtr[1][l+2] - 4.0 * uPtr[1][l+1] + 6.0 * uPtr[1][l] - 4.0 * uPtr[1][l-1] + uPtr[1][l-2]);
+//        damp = (B1 * uPtr[2][l]) + ((B2 * (uPtr[1][l+1] - 2.0 * uPtr[1][l] + uPtr[1][l-1] - uPtr[2][l+1] + 2.0 * uPtr[2][l] - uPtr[2][l-1])));
+//        stiffness = muSq * (uPtr[1][l+2] - 4.0 * uPtr[1][l+1] + 6.0 * uPtr[1][l] - 4.0 * uPtr[1][l-1] + uPtr[1][l-2]);
+//
+//        uPtr[0][l] = D * (2.0 * uPtr[1][l] - uPtr[2][l] + lambdaSq * (uPtr[1][l-1] - 2.0 * uPtr[1][l] + uPtr[1][l+1])) - stiffness + damp;
+        
+        uPtr[0][l] = A1 * uPtr[1][l] + A2 * (uPtr[1][l + 1] + uPtr[1][l - 1]) + A3 * (uPtr[1][l + 2] + uPtr[1][l - 2])
+                + A4 * uPtr[2][l] + A5 * (uPtr[2][l + 1] + uPtr[2][l - 1]);
             
-        uPtr[0][l] = D * (2.0 * uPtr[1][l] - uPtr[2][l] + lambdaSq * (uPtr[1][l-1] - 2.0 * uPtr[1][l] + uPtr[1][l+1])) - stiffness + damp;
-            
-        uPtr[1][static_cast<int>(startNode - 2)] = 0;
-        uPtr[1][static_cast<int>(startNode - 1)] = 0;
-        uPtr[1][static_cast<int>(endNode + 1)] = 0;
-        uPtr[1][static_cast<int>(endNode + 2)] = 0;
+//        uPtr[1][static_cast<int>(startNode - 2)] = 0;
+//        uPtr[1][static_cast<int>(startNode - 1)] = 0;
+//        uPtr[1][static_cast<int>(endNode + 1)] = 0;
+//        uPtr[1][static_cast<int>(endNode + 2)] = 0;
         
     }
 }

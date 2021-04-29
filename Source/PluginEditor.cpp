@@ -31,67 +31,12 @@ void SanturTestAudioProcessorEditor::paint (juce::Graphics& g)
     
     g.setColour(juce::Colours::black);
 
-//    stringPath.startNewSubPath(juce::Point<float> ((float)getWidth()*0.6, (float)getHeight()*0.5));
-//    stringPath.lineTo((float)getWidth()*0.3, (float)getHeight()*0.5+ ((float)audioProcessor.currentSample)) ;
-//    stringPath.lineTo((float)getWidth()*0.1, (float)getHeight()*0.5);
-//    stringPath.closeSubPath();
-//    g.fillPath(stringPath);
-//    g.strokePath(stringPath, PathStrokeType(2.0f));
-//
-//
-//    boundaryPath.startNewSubPath(juce::Point<float> ((float)getWidth()*0.6, (float)getHeight()*0.3));
-//    boundaryPath.lineTo((float)getWidth()*0.1, (float)getHeight()*0.3);
-//    boundaryPath.lineTo((float)getWidth()*0.1, (float)getHeight()*0.7);
-//    boundaryPath.lineTo((float)getWidth()*0.6, (float)getHeight()*0.7);
-//    boundaryPath.closeSubPath();
-//    g.strokePath(boundaryPath, PathStrokeType(1.0f));
 
 }
 
 void SanturTestAudioProcessorEditor::resized()
 {
 
-//    // STRING LENGTH SLIDER
-//    stringLengthSlider.addListener(this);
-//    stringLengthSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-//    stringLengthSlider.setColour(Slider::rotarySliderFillColourId, Colour(18,18,17));
-//    stringLengthSlider.setColour(Slider::rotarySliderOutlineColourId, Colour(18,18,17));
-//    stringLengthSlider.setColour(Slider::thumbColourId, Colour(68,102,187));
-//    stringLengthSlider.setBounds(550, 50, 150, 150);
-//    stringLengthSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 80, 30);
-//    stringLengthSlider.setRange(0.5, 100, 0.5);
-//    stringLengthSlider.setTextValueSuffix(" Meters");
-//    stringLengthSlider.setColour(Slider::textBoxTextColourId, Colour(18,18,17));
-//    stringLengthSlider.setColour(Slider::textBoxOutlineColourId, Colour(255,255,247));
-//    stringLengthSlider.setValue(0.5);
-//    addAndMakeVisible(stringLengthSlider);
-//
-//    stringLengthLabel.setText("String Length", dontSendNotification);
-//    stringLengthLabel.attachToComponent(&stringLengthSlider, false);
-//    stringLengthLabel.setJustificationType(Justification::centred);
-//    stringLengthLabel.setColour(Label::textColourId, Colour(juce::Colours::black));
-//    addAndMakeVisible(stringLengthLabel);
-    
-//    // STIFFNESS SLIDER
-//    stiffnessSlider.addListener(this);
-//    stiffnessSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-//    stiffnessSlider.setColour(Slider::rotarySliderFillColourId, Colour(18,18,17));
-//    stiffnessSlider.setColour(Slider::rotarySliderOutlineColourId, Colour(18,18,17));
-//    stiffnessSlider.setColour(Slider::thumbColourId, Colour(68,102,187));
-//    stiffnessSlider.setBounds(70, 280, 80, 80);
-//    stiffnessSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 80, 30);
-//    stiffnessSlider.setRange(0.0, 10.f, 0.01f);
-//    stiffnessSlider.setColour(Slider::textBoxTextColourId, Colour(18,18,17));
-//    stiffnessSlider.setColour(Slider::textBoxOutlineColourId, Colour(255,255,247));
-//    stiffnessSlider.setValue(0.f);
-//    addAndMakeVisible(stiffnessSlider);
-//
-//    stiffnessLabel.setText("Kappa", dontSendNotification);
-//    stiffnessLabel.attachToComponent(&stiffnessSlider, false);
-//    stiffnessLabel.setJustificationType(Justification::centred);
-//    stiffnessLabel.setColour(Label::textColourId, Colour(juce::Colours::black));
-//    addAndMakeVisible(stiffnessLabel);
-    
     // S1 DAMPING SLIDER
     s1DampingSlider.addListener(this);
     s1DampingSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
@@ -172,9 +117,8 @@ void SanturTestAudioProcessorEditor::resized()
 //    tensionLabel.setJustificationType(Justification::centred);
 //    tensionLabel.setColour(Label::textColourId, Colour(juce::Colours::black));
 //    addAndMakeVisible(tensionLabel);
-//    
+
 //    EXCITATION MENU
-    
     excitationMenu.setBounds(570, 280, 100, 20);
     excitationMenu.addItem("Hanning", 1);
     excitationMenu.addItem("Triangle", 2);
