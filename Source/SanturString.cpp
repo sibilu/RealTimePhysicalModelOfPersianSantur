@@ -100,6 +100,12 @@ void SanturString::exciteTri() {
 //    string4->exciteTri();
     
 }
+
+void SanturString::excite(int exciteSelection) {
+    string1->excite(exciteSelection);
+    string2->excite(exciteSelection);
+    string3->excite(exciteSelection);
+}
 void SanturString::processScheme() {
     string1->processScheme();
     string2->processScheme();

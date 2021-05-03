@@ -232,43 +232,43 @@ void SanturTestAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
 
     if (playNote[0]) {
         dSharpLow51->setPluckLoc(pluckLoc);
-        dSharpLow51->exciteTri();
+        dSharpLow51->excite(excitationSelection);
         playNote[0]=false;
     } else if (playNote[1]) {
         d62->setPluckLoc(pluckLoc);
-        d62->exciteTri();
+        d62->excite(excitationSelection);
         playNote[1]=false;
     } else if (playNote[2]) {
         fLow53->setPluckLoc(pluckLoc);
-        fLow53->exciteTri();
+        fLow53->excite(excitationSelection);
         playNote[2]=false;
     } else if (playNote[3]) {
         f65->setPluckLoc(pluckLoc);
-        f65->exciteTri();
+        f65->excite(excitationSelection);
         playNote[3]=false;
-    }else if (playNote[4]) {
+    } else if (playNote[4]) {
         gLow55->setPluckLoc(pluckLoc);
-        gLow55->exciteTri();
+        gLow55->excite(excitationSelection);
         playNote[4]=false;
-    }else if (playNote[5]) {
+    } else if (playNote[5]) {
         g67->setPluckLoc(pluckLoc);
-        g67->exciteTri();
+        g67->excite(excitationSelection);
         playNote[5]=false;
-    }else if (playNote[6]) {
+    } else if (playNote[6]) {
         aLow57->setPluckLoc(pluckLoc);
-        aLow57->exciteTri();
+        aLow57->excite(excitationSelection);
         playNote[6]=false;
     } else if (playNote[7]) {
         a69->setPluckLoc(pluckLoc);
-        a69->exciteTri();
+        a69->excite(excitationSelection);
         playNote[7]=false;
-    }else if (playNote[8]) {
+    } else if (playNote[8]) {
         aSharpLow58->setPluckLoc(pluckLoc);
-        aSharpLow58->exciteTri();
+        aSharpLow58->excite(excitationSelection);
         playNote[8]=false;
-    }else if (playNote[9]) {
+    } else if (playNote[9]) {
         aSharp70->setPluckLoc(pluckLoc);
-        aSharp70->exciteTri();
+        aSharp70->excite(excitationSelection);
         playNote[9]=false;
     }
     
@@ -326,6 +326,7 @@ void SanturTestAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
 
                 channelData1[i] = limit(mainOut, -1.f, 1.f);
                 channelData2[i] = limit(mainOut, -1.f, 1.f);
+
             }
 }
 

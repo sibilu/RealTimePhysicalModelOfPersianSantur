@@ -144,7 +144,7 @@ void SanturTestAudioProcessorEditor::resized()
     excitationMenu.addItem("Triangle", 2);
     excitationMenu.addItem("Hammer", 3);
     excitationMenu.onChange = [this] {excitationMenuChanged(); };
-    excitationMenu.setSelectedId(1);
+    excitationMenu.setSelectedId(2);
     addAndMakeVisible(excitationMenu);
     
     excitationLabel.setText("Excitaiton", dontSendNotification);

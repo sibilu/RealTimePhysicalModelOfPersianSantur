@@ -139,6 +139,7 @@ private:
     std::vector<bool> playNote{false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
     
     double stringOut1, stringOut2, stringOut3,stringOut4, stringOut5, stringOut6, stringOut7,stringOut8, stringOut9, stringOut10, mainOut;
+    
 
 
 

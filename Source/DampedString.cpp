@@ -155,6 +155,36 @@ void DampedString::updateCoefficientsSteel() {
     muSq = (kappa*kappa*k*k)/pow(h,4);
 }
 
+void DampedString::excite(int exciteSelection) {
+    width = 10;
+    switch (exciteSelection) {
+        case 1:
+            for (int j = 0; j < width; ++j) {
+                double hann = 0.5 * (1 - cos(2*double_Pi*j/(width-1)));
+                uPtr[1][static_cast<int>(j+pluckLoc)] = hann;
+                uPtr[2][static_cast<int>(j+pluckLoc)] = hann;
+        }; break;
+        case 2:
+            for(int j = 0; j < width; ++j) {
+                if(j <= ((width)/2) && j >= 1) {
+                    uPtr[1][static_cast<int>(j+pluckLoc)] = 0.5 * ((2*j - 1)/(width));
+                    uPtr[2][static_cast<int>(j+pluckLoc)] = 0.5 * ((2*j - 1)/(width));
+                } else {
+                    uPtr[1][static_cast<int>(j+pluckLoc)] = 0.5 * (2 - ((2*j - 1)/(width)));
+                    uPtr[2][static_cast<int>(j+pluckLoc)] = 0.5 * (2 - ((2*j - 1)/(width)));
+            }
+        }; break;
+        case 3:
+            for (int j = 0; j < width; ++j) {
+                uPtr[1][static_cast<int>(j+pluckLoc)];
+                uPtr[2][static_cast<int>(j+pluckLoc)];
+            }; break;
+            
+        default:
+            break;
+    }
+}
+
 void DampedString::exciteHann() {
     width = 10;
     for (int j = 0; j < width; ++j) {
@@ -168,11 +198,11 @@ void DampedString::exciteTri() {
     width = 10;
     for(int j = 0; j < width; ++j) {
         if(j <= ((width)/2) && j >= 1) {
-            uPtr[1][static_cast<int>(j+pluckLoc)] = ((2*j - 1)/(width));
-            uPtr[2][static_cast<int>(j+pluckLoc)] = ((2*j - 1)/(width));
+            uPtr[1][static_cast<int>(j+pluckLoc)] = 0.5 * ((2*j - 1)/(width));
+            uPtr[2][static_cast<int>(j+pluckLoc)] = 0.5 * ((2*j - 1)/(width));
         } else {
-            uPtr[1][static_cast<int>(j+pluckLoc)] = 2 - ((2*j - 1)/(width));
-            uPtr[2][static_cast<int>(j+pluckLoc)] = 2 - ((2*j - 1)/(width));
+            uPtr[1][static_cast<int>(j+pluckLoc)] = 0.5 * (2 - ((2*j - 1)/(width)));
+            uPtr[2][static_cast<int>(j+pluckLoc)] = 0.5 * (2 - ((2*j - 1)/(width)));
         }
     }
 }

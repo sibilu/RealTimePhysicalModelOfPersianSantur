@@ -23,6 +23,7 @@ class SanturString {
     void setPluckLoc(double pluckLoc);
     void exciteHann();
     void exciteTri();
+    void excite(int exciteSelection);
     void processScheme();
     void updateStates();
     double getOutput(double outPos);

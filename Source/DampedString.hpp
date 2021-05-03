@@ -35,6 +35,7 @@ public:
     void exciteHann();
     void exciteTri();
     void exciteHammer();
+    void excite(int exciteSelection);
     
     double getOutput(double outPos);
     
