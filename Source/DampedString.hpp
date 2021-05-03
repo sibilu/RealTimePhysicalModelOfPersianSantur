@@ -27,7 +27,7 @@ public:
     void setOutLoc(double outLoc);
     
     void setDamping(double s1);
-    void setTension(double newTension);
+    void setTension(double newTension, double detune);
 
     void updateCoefficientsBrass();
     void updateCoefficientsSteel();

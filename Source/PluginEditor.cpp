@@ -117,6 +117,26 @@ void SanturTestAudioProcessorEditor::resized()
 //    tensionLabel.setJustificationType(Justification::centred);
 //    tensionLabel.setColour(Label::textColourId, Colour(juce::Colours::black));
 //    addAndMakeVisible(tensionLabel);
+    
+//    DETUNE SLIDER
+    detuneSlider.addListener(this);
+    detuneSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+    detuneSlider.setColour(Slider::rotarySliderFillColourId, Colour(18,18,17));
+    detuneSlider.setColour(Slider::rotarySliderOutlineColourId, Colour(18,18,17));
+    detuneSlider.setColour(Slider::thumbColourId, Colour(68,102,187));
+    detuneSlider.setBounds(470, 280, 80, 80);
+    detuneSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 80, 30);
+    detuneSlider.setRange(1, 5, 1);
+    detuneSlider.setColour(Slider::textBoxTextColourId, Colour(18,18,17));
+    detuneSlider.setColour(Slider::textBoxOutlineColourId, Colour(255,255,247));
+    detuneSlider.setValue(1);
+    addAndMakeVisible(detuneSlider);
+
+    detuneLabel.setText("Detune", dontSendNotification);
+    detuneLabel.attachToComponent(&detuneSlider, false);
+    detuneLabel.setJustificationType(Justification::centred);
+    detuneLabel.setColour(Label::textColourId, Colour(juce::Colours::black));
+    addAndMakeVisible(detuneLabel);
 
 //    EXCITATION MENU
     excitationMenu.setBounds(570, 280, 100, 20);
@@ -154,6 +174,11 @@ void SanturTestAudioProcessorEditor::sliderValueChanged(Slider * slider) {
     if(slider == & tensionSlider) {
 //        audioProcessor.setTension(tensionSlider.getValue());
 //        audioProcessor.updateStringClassCoefficients();
+    }
+    
+    if(slider == & detuneSlider) {
+        audioProcessor.setDetune(detuneSlider.getValue());
+        audioProcessor.updateStringClassCoefficients();
     }
 }
 

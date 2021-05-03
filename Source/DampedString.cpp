@@ -126,8 +126,8 @@ void DampedString::setDamping(double s1) {
     this->s1 = s1;
 }
 
-void DampedString::setTension(double newTension) {
-    this->tension = newTension;
+void DampedString::setTension(double newTension, double detune) {
+    this->tension = newTension + detune;
 }
 
 
@@ -166,14 +166,14 @@ void DampedString::exciteHann() {
 
 void DampedString::exciteTri() {
     width = 10;
-    for (int j = 0; j < width; ++j) {
-        if(j <= width && j >= ((width+1)/2)) {
-            uPtr[1][static_cast<int>(j+pluckLoc)] = 2 - ((2*j)/(width + 1));
-            uPtr[2][static_cast<int>(j+pluckLoc)] = 2 - ((2*j)/(width + 1));
-            } else {
-                uPtr[1][static_cast<int>(j+pluckLoc)] = (2*j)/(width+1);
-                uPtr[2][static_cast<int>(j+pluckLoc)] = (2*j)/(width+1);
-            }
+    for(int j = 0; j < width; ++j) {
+        if(j <= ((width)/2) && j >= 1) {
+            uPtr[1][static_cast<int>(j+pluckLoc)] = ((2*j - 1)/(width));
+            uPtr[2][static_cast<int>(j+pluckLoc)] = ((2*j - 1)/(width));
+        } else {
+            uPtr[1][static_cast<int>(j+pluckLoc)] = 2 - ((2*j - 1)/(width));
+            uPtr[2][static_cast<int>(j+pluckLoc)] = 2 - ((2*j - 1)/(width));
+        }
     }
 }
 

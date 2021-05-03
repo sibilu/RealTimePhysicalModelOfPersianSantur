@@ -45,12 +45,14 @@ private:
     
     Slider tensionSlider;
     Slider outputPosSlider;
+    Slider detuneSlider;
 //    -----------------------
     Label s1DampingSliderLabel;
     Label pluckLocLabel;
     
     Label tensionLabel;
     Label outputPosLabel;
+    Label detuneLabel;
     
     Label excitationLabel;
     ComboBox excitationMenu;

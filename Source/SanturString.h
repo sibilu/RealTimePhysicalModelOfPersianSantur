@@ -28,7 +28,7 @@ class SanturString {
     double getOutput(double outPos);
     
     void setDamping(double newDamping);
-    void setTension(double newTension);
+    void setTension(double newTension, int detuneValue);
     void updateCoefficientsBrass();
     void updateCoefficientsSteel();
 
@@ -41,6 +41,6 @@ class SanturString {
     std::unique_ptr<DampedString> string1;
     std::unique_ptr<DampedString> string2;
     std::unique_ptr<DampedString> string3;
-    std::unique_ptr<DampedString> string4;
+//    std::unique_ptr<DampedString> string4;
     
 };
