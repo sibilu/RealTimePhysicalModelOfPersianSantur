@@ -30,13 +30,9 @@ public:
     void setTension(double newTension, double detune);
     void setTension(double newTension);
 
-    void updateCoefficientsBrass();
-    void updateCoefficientsSteel();
+    void updateCoefficients();
 
-    void exciteHann();
-    void exciteTri();
-    void exciteHammer();
-    void excite(int exciteSelection);
+    void excite(int exciteSelection, double velocity);
     
     double getOutput(double outPos);
     

@@ -21,9 +21,7 @@ class SanturString {
     ~SanturString();
     
     void setPluckLoc(double pluckLoc);
-    void exciteHann();
-    void exciteTri();
-    void excite(int exciteSelection);
+    void excite(int exciteSelection, double velocity);
     void processScheme();
     void updateStates();
     double getOutput(double outPos);
@@ -31,18 +29,13 @@ class SanturString {
     void setDamping(double newDamping);
     void setTension(double newTension, int detuneValue);
     void setTension(double newTension);
-    void updateCoefficientsBrass();
-    void updateCoefficientsSteel();
+    void updateCoefficients();
 
     double k;
     
     
     private:
-    
-    
     std::unique_ptr<DampedString> string1;
     std::unique_ptr<DampedString> string2;
     std::unique_ptr<DampedString> string3;
-//    std::unique_ptr<DampedString> string4;
-    
 };

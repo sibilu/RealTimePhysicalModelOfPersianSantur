@@ -249,6 +249,10 @@ void SanturTestAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
         if(message.isNoteOn()) {
             for (int n = 0; n < 18; n++){
                 if(message.getNoteNumber() == midiValues[n]) {
+                    velocityFullRange = message.getVelocity();
+                    velocityNormalized = (velocityFullRange/127);
+
+                    vel[n] = velocityNormalized;
                     playNote[n] = true;
                 }
             }
@@ -316,7 +320,7 @@ void SanturTestAudioProcessor::updateStringClassCoefficients() {
 
     //-------------------------------------------------
     for (int i = 0; i < 18; ++i) {
-        santurStrings[i]->updateCoefficientsBrass();
+        santurStrings[i]->updateCoefficients();
     }
 }
 
@@ -357,7 +361,7 @@ void SanturTestAudioProcessor::checkActiveNotes() {
     for(int i = 0; i < 18; ++i) {
         if(playNote[i]) {
             santurStrings[i]->setPluckLoc(pluckLoc);
-            santurStrings[i]->excite(excitationSelection);
+            santurStrings[i]->excite(excitationSelection, vel[i]);
             playNote[i] = false;
         }
     }

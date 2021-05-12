@@ -135,7 +135,7 @@ void DampedString::setTension(double newTension) {
 }
 
 
-void DampedString::updateCoefficientsBrass() {
+void DampedString::updateCoefficients() {
     c = sqrt(tension/(p*A));
     kappa = sqrt((E*I)/p*A);
     h = sqrt((c * c * k * k + 4.0 * s1 * k
@@ -147,19 +147,7 @@ void DampedString::updateCoefficientsBrass() {
     muSq = (kappa*kappa*k*k)/pow(h,4);
 }
 
-void DampedString::updateCoefficientsSteel() {
-    c = sqrt(tension/(p*A));
-    kappa = sqrt((E*I)/p*A);
-    h = sqrt((c * c * k * k + 4.0 * s1 * k
-             + sqrt (pow (c * c * k * k + 4.0 * s1 * k, 2.0)
-                    + 16.0 * kappa * kappa * k * k)) * 0.5);
-    N = truncatePositiveToUnsignedInt(stringLength / h);
-    h = stringLength / N;
-    lambdaSq = (c*c*k*k)/(h*h);
-    muSq = (kappa*kappa*k*k)/pow(h,4);
-}
-
-void DampedString::excite(int exciteSelection) {
+void DampedString::excite(int exciteSelection, double velocity) {
 
     width = 10;
     switch (exciteSelection) {
@@ -172,11 +160,11 @@ void DampedString::excite(int exciteSelection) {
         case 2:
             for(int j = 0; j < width; ++j) {
                 if(j <= ((width)/2) && j >= 1) {
-                    uPtr[1][static_cast<int>(j+pluckLoc)] = 0.5 * ((2*j - 1)/(width));
-                    uPtr[2][static_cast<int>(j+pluckLoc)] = 0.5 * ((2*j - 1)/(width));
+                    uPtr[1][static_cast<int>(j+pluckLoc)] = velocity * ((2*j - 1)/(width));
+                    uPtr[2][static_cast<int>(j+pluckLoc)] = velocity * ((2*j - 1)/(width));
                 } else {
-                    uPtr[1][static_cast<int>(j+pluckLoc)] = 0.5 * (2 - ((2*j - 1)/(width)));
-                    uPtr[2][static_cast<int>(j+pluckLoc)] = 0.5 * (2 - ((2*j - 1)/(width)));
+                    uPtr[1][static_cast<int>(j+pluckLoc)] = velocity * (2 - ((2*j - 1)/(width)));
+                    uPtr[2][static_cast<int>(j+pluckLoc)] = velocity * (2 - ((2*j - 1)/(width)));
             }
         }; break;
         case 3:
@@ -190,35 +178,6 @@ void DampedString::excite(int exciteSelection) {
     }
 }
 
-void DampedString::exciteHann() {
-    width = 10;
-    for (int j = 0; j < width; ++j) {
-        double hann = 0.5 * (1 - cos(2*double_Pi*j/(width-1)));
-        uPtr[1][static_cast<int>(j+pluckLoc)] = hann;
-        uPtr[2][static_cast<int>(j+pluckLoc)] = hann;
-      }
-}
-
-void DampedString::exciteTri() {
-    width = 10;
-    for(int j = 0; j < width; ++j) {
-        if(j <= ((width)/2) && j >= 1) {
-            uPtr[1][static_cast<int>(j+pluckLoc)] = 0.5 * ((2*j - 1)/(width));
-            uPtr[2][static_cast<int>(j+pluckLoc)] = 0.5 * ((2*j - 1)/(width));
-        } else {
-            uPtr[1][static_cast<int>(j+pluckLoc)] = 0.5 * (2 - ((2*j - 1)/(width)));
-            uPtr[2][static_cast<int>(j+pluckLoc)] = 0.5 * (2 - ((2*j - 1)/(width)));
-        }
-    }
-}
-
-void DampedString::exciteHammer() {
-    width = 10;
-    for (int j = 0; j < width; ++j) {
-        uPtr[1][static_cast<int>(j+pluckLoc)];
-        uPtr[2][static_cast<int>(j+pluckLoc)];
-    }
-}
 
 
 

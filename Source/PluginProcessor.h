@@ -127,9 +127,12 @@ private:
     
     std::vector<int> midiValues{48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65};
     
-    std::vector<bool> playNote{false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false };
+    std::vector<bool> playNote{false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
     
     double stringOut0, stringOut1, stringOut2, stringOut3,stringOut4, stringOut5, stringOut6, stringOut7,stringOut8, stringOut9, stringOut10, stringOut11, stringOut12, stringOut13, stringOut14, stringOut15, stringOut16, stringOut17, mainOut;
+    
+    double vel[18] = {0.0};
+    double velocityFullRange, velocityNormalized;
 
 
 
