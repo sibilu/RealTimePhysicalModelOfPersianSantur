@@ -130,6 +130,10 @@ void DampedString::setTension(double newTension, double detune) {
     this->tension = newTension + detune;
 }
 
+void DampedString::setTension(double newTension) {
+    this->tension = newTension;
+}
+
 
 void DampedString::updateCoefficientsBrass() {
     c = sqrt(tension/(p*A));
@@ -156,6 +160,7 @@ void DampedString::updateCoefficientsSteel() {
 }
 
 void DampedString::excite(int exciteSelection) {
+
     width = 10;
     switch (exciteSelection) {
         case 1:

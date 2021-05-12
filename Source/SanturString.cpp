@@ -142,9 +142,15 @@ void SanturString::setDamping(double s1) {
 
 void SanturString::setTension(double newTension, int detuneValue) {
     string1->setTension(newTension, 0);
-    string2->setTension(newTension, -(116 * detuneValue));
-    string3->setTension(newTension, (115 * detuneValue));
+    string2->setTension(newTension, -(350 * detuneValue));
+    string3->setTension(newTension, (346 * detuneValue));
 //    string4->setTension(newTension, -(116 * detuneValue));
+}
+
+void SanturString::setTension(double newTension) {
+    string1->setTension(newTension);
+    string2->setTension(newTension - 350.f);
+    string3->setTension(newTension + 346.f);
 }
 
 void SanturString::updateCoefficientsBrass() {

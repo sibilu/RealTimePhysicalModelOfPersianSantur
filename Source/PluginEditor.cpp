@@ -38,65 +38,65 @@ void SanturTestAudioProcessorEditor::resized()
 {
 
     // S1 DAMPING SLIDER
-    s1DampingSlider.addListener(this);
-    s1DampingSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    s1DampingSlider.setColour(Slider::rotarySliderFillColourId, Colour(18,18,17));
-    s1DampingSlider.setColour(Slider::rotarySliderOutlineColourId, Colour(18,18,17));
-    s1DampingSlider.setColour(Slider::thumbColourId, Colour(68,102,187));
-    s1DampingSlider.setBounds(170, 280, 80, 80);
-    s1DampingSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 80, 30);
-    s1DampingSlider.setRange(0.00001, 0.005, 0.00001f);
-    s1DampingSlider.setColour(Slider::textBoxTextColourId, Colour(18,18,17));
-    s1DampingSlider.setColour(Slider::textBoxOutlineColourId, Colour(255,255,247));
-    s1DampingSlider.setValue(0.00015);
-    addAndMakeVisible(s1DampingSlider);
-            
-    s1DampingSliderLabel.setText("Damping", dontSendNotification);
-    s1DampingSliderLabel.attachToComponent(&s1DampingSlider, false);
-    s1DampingSliderLabel.setJustificationType(Justification::centred);
-    s1DampingSliderLabel.setColour(Label::textColourId, Colour(juce::Colours::black));
-    addAndMakeVisible(s1DampingSliderLabel);
+//    s1DampingSlider.addListener(this);
+//    s1DampingSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+//    s1DampingSlider.setColour(Slider::rotarySliderFillColourId, Colour(18,18,17));
+//    s1DampingSlider.setColour(Slider::rotarySliderOutlineColourId, Colour(18,18,17));
+//    s1DampingSlider.setColour(Slider::thumbColourId, Colour(68,102,187));
+//    s1DampingSlider.setBounds(170, 280, 80, 80);
+//    s1DampingSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 80, 30);
+//    s1DampingSlider.setRange(0.00001, 0.005, 0.00001f);
+//    s1DampingSlider.setColour(Slider::textBoxTextColourId, Colour(18,18,17));
+//    s1DampingSlider.setColour(Slider::textBoxOutlineColourId, Colour(255,255,247));
+//    s1DampingSlider.setValue(0.00015);
+//    addAndMakeVisible(s1DampingSlider);
+//
+//    s1DampingSliderLabel.setText("Damping", dontSendNotification);
+//    s1DampingSliderLabel.attachToComponent(&s1DampingSlider, false);
+//    s1DampingSliderLabel.setJustificationType(Justification::centred);
+//    s1DampingSliderLabel.setColour(Label::textColourId, Colour(juce::Colours::black));
+//    addAndMakeVisible(s1DampingSliderLabel);
     
     // INPUT POSITION SLIDER
-    pluckLocSlider.addListener(this);
-    pluckLocSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    pluckLocSlider.setColour(Slider::rotarySliderFillColourId, Colour(18,18,17));
-    pluckLocSlider.setColour(Slider::rotarySliderOutlineColourId, Colour(18,18,17));
-    pluckLocSlider.setColour(Slider::thumbColourId, Colour(68,102,187));
-    pluckLocSlider.setBounds(270, 280, 80, 80);
-    pluckLocSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 80, 30);
-    pluckLocSlider.setRange(0.1, 1.0, 0.01f);
-    pluckLocSlider.setColour(Slider::textBoxTextColourId, Colour(18,18,17));
-    pluckLocSlider.setColour(Slider::textBoxOutlineColourId, Colour(255,255,247));
-    pluckLocSlider.setValue(0.89f);
-    addAndMakeVisible(pluckLocSlider);
-        
-    pluckLocLabel.setText("Pluck Location", dontSendNotification);
-    pluckLocLabel.attachToComponent(&pluckLocSlider, false);
-    pluckLocLabel.setJustificationType(Justification::centred);
-    pluckLocLabel.setColour(Label::textColourId, Colour(juce::Colours::black));
-    addAndMakeVisible(pluckLocLabel);
+//    pluckLocSlider.addListener(this);
+//    pluckLocSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+//    pluckLocSlider.setColour(Slider::rotarySliderFillColourId, Colour(18,18,17));
+//    pluckLocSlider.setColour(Slider::rotarySliderOutlineColourId, Colour(18,18,17));
+//    pluckLocSlider.setColour(Slider::thumbColourId, Colour(68,102,187));
+//    pluckLocSlider.setBounds(270, 280, 80, 80);
+//    pluckLocSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 80, 30);
+//    pluckLocSlider.setRange(0.1, 1.0, 0.01f);
+//    pluckLocSlider.setColour(Slider::textBoxTextColourId, Colour(18,18,17));
+//    pluckLocSlider.setColour(Slider::textBoxOutlineColourId, Colour(255,255,247));
+//    pluckLocSlider.setValue(0.70f);
+//    addAndMakeVisible(pluckLocSlider);
+//
+//    pluckLocLabel.setText("Pluck Location", dontSendNotification);
+//    pluckLocLabel.attachToComponent(&pluckLocSlider, false);
+//    pluckLocLabel.setJustificationType(Justification::centred);
+//    pluckLocLabel.setColour(Label::textColourId, Colour(juce::Colours::black));
+//    addAndMakeVisible(pluckLocLabel);
 
     
     // OUTPUT POSITION SLIDER
-    outputPosSlider.addListener(this);
-    outputPosSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    outputPosSlider.setColour(Slider::rotarySliderFillColourId, Colour(18,18,17));
-    outputPosSlider.setColour(Slider::rotarySliderOutlineColourId, Colour(18,18,17));
-    outputPosSlider.setColour(Slider::thumbColourId, Colour(68,102,187));
-    outputPosSlider.setBounds(370, 280, 80, 80);
-    outputPosSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 80, 30);
-    outputPosSlider.setRange(0.1, 1.0, 0.01f);
-    outputPosSlider.setColour(Slider::textBoxTextColourId, Colour(18,18,17));
-    outputPosSlider.setColour(Slider::textBoxOutlineColourId, Colour(255,255,247));
-    outputPosSlider.setValue(0.86f);
-    addAndMakeVisible(outputPosSlider);
-        
-    outputPosLabel.setText("Output Pos", dontSendNotification);
-    outputPosLabel.attachToComponent(&outputPosSlider, false);
-    outputPosLabel.setJustificationType(Justification::centred);
-    outputPosLabel.setColour(Label::textColourId, Colour(juce::Colours::black));
-    addAndMakeVisible(outputPosLabel);
+//    outputPosSlider.addListener(this);
+//    outputPosSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+//    outputPosSlider.setColour(Slider::rotarySliderFillColourId, Colour(18,18,17));
+//    outputPosSlider.setColour(Slider::rotarySliderOutlineColourId, Colour(18,18,17));
+//    outputPosSlider.setColour(Slider::thumbColourId, Colour(68,102,187));
+//    outputPosSlider.setBounds(370, 280, 80, 80);
+//    outputPosSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 80, 30);
+//    outputPosSlider.setRange(0.1, 1.0, 0.01f);
+//    outputPosSlider.setColour(Slider::textBoxTextColourId, Colour(18,18,17));
+//    outputPosSlider.setColour(Slider::textBoxOutlineColourId, Colour(255,255,247));
+//    outputPosSlider.setValue(0.12f);
+//    addAndMakeVisible(outputPosSlider);
+//
+//    outputPosLabel.setText("Output Pos", dontSendNotification);
+//    outputPosLabel.attachToComponent(&outputPosSlider, false);
+//    outputPosLabel.setJustificationType(Justification::centred);
+//    outputPosLabel.setColour(Label::textColourId, Colour(juce::Colours::black));
+//    addAndMakeVisible(outputPosLabel);
     
     // TENSION SLIDER
 //    tensionSlider.addListener(this);
@@ -119,24 +119,24 @@ void SanturTestAudioProcessorEditor::resized()
 //    addAndMakeVisible(tensionLabel);
     
 //    DETUNE SLIDER
-    detuneSlider.addListener(this);
-    detuneSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
-    detuneSlider.setColour(Slider::rotarySliderFillColourId, Colour(18,18,17));
-    detuneSlider.setColour(Slider::rotarySliderOutlineColourId, Colour(18,18,17));
-    detuneSlider.setColour(Slider::thumbColourId, Colour(68,102,187));
-    detuneSlider.setBounds(470, 280, 80, 80);
-    detuneSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 80, 30);
-    detuneSlider.setRange(1, 5, 1);
-    detuneSlider.setColour(Slider::textBoxTextColourId, Colour(18,18,17));
-    detuneSlider.setColour(Slider::textBoxOutlineColourId, Colour(255,255,247));
-    detuneSlider.setValue(1);
-    addAndMakeVisible(detuneSlider);
-
-    detuneLabel.setText("Detune", dontSendNotification);
-    detuneLabel.attachToComponent(&detuneSlider, false);
-    detuneLabel.setJustificationType(Justification::centred);
-    detuneLabel.setColour(Label::textColourId, Colour(juce::Colours::black));
-    addAndMakeVisible(detuneLabel);
+//    detuneSlider.addListener(this);
+//    detuneSlider.setSliderStyle(Slider::RotaryHorizontalVerticalDrag);
+//    detuneSlider.setColour(Slider::rotarySliderFillColourId, Colour(18,18,17));
+//    detuneSlider.setColour(Slider::rotarySliderOutlineColourId, Colour(18,18,17));
+//    detuneSlider.setColour(Slider::thumbColourId, Colour(68,102,187));
+//    detuneSlider.setBounds(470, 280, 80, 80);
+//    detuneSlider.setTextBoxStyle(Slider::TextBoxBelow, false, 80, 30);
+//    detuneSlider.setRange(1, 5, 1);
+//    detuneSlider.setColour(Slider::textBoxTextColourId, Colour(18,18,17));
+//    detuneSlider.setColour(Slider::textBoxOutlineColourId, Colour(255,255,247));
+//    detuneSlider.setValue(1);
+//    addAndMakeVisible(detuneSlider);
+//
+//    detuneLabel.setText("Detune", dontSendNotification);
+//    detuneLabel.attachToComponent(&detuneSlider, false);
+//    detuneLabel.setJustificationType(Justification::centred);
+//    detuneLabel.setColour(Label::textColourId, Colour(juce::Colours::black));
+//    addAndMakeVisible(detuneLabel);
 
 //    EXCITATION MENU
     excitationMenu.setBounds(570, 280, 100, 20);
@@ -158,17 +158,17 @@ void SanturTestAudioProcessorEditor::sliderValueChanged(Slider * slider) {
 
     
     if(slider == & outputPosSlider) {
-        audioProcessor.setOutPosition(outputPosSlider.getValue());
+//        audioProcessor.setOutPosition(outputPosSlider.getValue());
     }
     
     if(slider == & pluckLocSlider) {
-        audioProcessor.setPluckLoc(pluckLocSlider.getValue());
+//        audioProcessor.setPluckLoc(pluckLocSlider.getValue());
     }
     
     
     if(slider == & s1DampingSlider) {
-        audioProcessor.setS1(s1DampingSlider.getValue());
-        audioProcessor.updateStringClassCoefficients();
+//        audioProcessor.setS1(s1DampingSlider.getValue());
+//        audioProcessor.updateStringClassCoefficients();
     }
     
     if(slider == & tensionSlider) {
@@ -176,10 +176,10 @@ void SanturTestAudioProcessorEditor::sliderValueChanged(Slider * slider) {
 //        audioProcessor.updateStringClassCoefficients();
     }
     
-    if(slider == & detuneSlider) {
-        audioProcessor.setDetune(detuneSlider.getValue());
-        audioProcessor.updateStringClassCoefficients();
-    }
+//    if(slider == & detuneSlider) {
+//        audioProcessor.setDetune(detuneSlider.getValue());
+//        audioProcessor.updateStringClassCoefficients();
+//    }
 }
 
 void SanturTestAudioProcessorEditor::mouseDown(const MouseEvent &e) {

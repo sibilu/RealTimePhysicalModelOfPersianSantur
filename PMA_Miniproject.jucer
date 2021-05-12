@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="NsOBNh" name="SanturTest" projectType="audioplug" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="1" displaySplashScreen="1" jucerFormatVersion="1"
-              pluginCharacteristicsValue="pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn">
-  <MAINGROUP id="i3FRmn" name="SanturTest">
+<JUCERPROJECT id="NsOBNh" name="SanturTestAllStrings" projectType="audioplug"
+              useAppConfig="0" addUsingNamespaceToJuceHeader="1" displaySplashScreen="1"
+              jucerFormatVersion="1" pluginCharacteristicsValue="pluginIsSynth,pluginProducesMidiOut,pluginWantsMidiIn">
+  <MAINGROUP id="i3FRmn" name="SanturTestAllStrings">
     <GROUP id="{B6B11BB8-EDB5-7BBA-E3A0-4BC4C28909FE}" name="Source">
       <FILE id="jcobkM" name="SanturString.cpp" compile="1" resource="0"
             file="Source/SanturString.cpp"/>

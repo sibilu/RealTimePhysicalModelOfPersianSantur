@@ -28,6 +28,7 @@ public:
     
     void setDamping(double s1);
     void setTension(double newTension, double detune);
+    void setTension(double newTension);
 
     void updateCoefficientsBrass();
     void updateCoefficientsSteel();

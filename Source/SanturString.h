@@ -30,6 +30,7 @@ class SanturString {
     
     void setDamping(double newDamping);
     void setTension(double newTension, int detuneValue);
+    void setTension(double newTension);
     void updateCoefficientsBrass();
     void updateCoefficientsSteel();
 
