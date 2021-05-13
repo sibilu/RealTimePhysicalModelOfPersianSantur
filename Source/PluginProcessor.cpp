@@ -201,6 +201,8 @@ void SanturTestAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
     DBG("sample rate:");
     DBG(fs);
     
+    
+    
 }
 
 void SanturTestAudioProcessor::releaseResources()
@@ -245,15 +247,40 @@ void SanturTestAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
 
     for (const auto metadata : midiMessages) {
         auto message = metadata.getMessage();
+        int previousNote;
+        int currentNote;
+        int tempNote;
         
         if(message.isNoteOn()) {
             for (int n = 0; n < 18; n++){
                 if(message.getNoteNumber() == midiValues[n]) {
                     velocityFullRange = message.getVelocity();
                     velocityNormalized = (velocityFullRange/127);
-
+                    
+                    currentNote = message.getNoteNumber();
+                    tempNote = currentNote;
+                    currentNote = previousNote;
+                    previousNote = tempNote;
                     vel[n] = velocityNormalized;
-                    playNote[n] = true;
+
+                    if(currentActiveNotes <= maxActiveNotes) {
+                        playNote[n] = true;
+                        triggerProcess[n] = true;
+
+                        if (currentNote != previousNote) {
+                            currentActiveNotes += 1;
+                            previousNote = currentNote;
+                            startTimer(7000);
+                        }
+//                        startTimer(7000);
+                        DBG("currentActiveNotes:");
+                        DBG(currentActiveNotes);
+                    }
+
+                    DBG("currentNote:");
+                    DBG(currentNote);
+                    DBG("previousNote:");
+                    DBG(previousNote);
                 }
             }
         }
@@ -369,8 +396,13 @@ void SanturTestAudioProcessor::checkActiveNotes() {
 
 void SanturTestAudioProcessor::processAndUpdateStrings() {
     for(int i = 0; i < 18; ++i) {
-        santurStrings[i]->processScheme();
-        santurStrings[i]->updateStates();
+        if(triggerProcess[i]) {
+            santurStrings[i]->processScheme();
+            santurStrings[i]->updateStates();
+//            triggerProcess[i] = false;
+        }
+//        santurStrings[i]->processScheme();
+//        santurStrings[i]->updateStates();
     }
 }
 
@@ -399,6 +431,15 @@ double SanturTestAudioProcessor::outputSound() {
     out = (stringOut0 + stringOut1 + stringOut2 + stringOut3 + stringOut4 + stringOut5 + stringOut6 + stringOut7 + stringOut8 + stringOut9 + stringOut10 + stringOut11 + stringOut12 + stringOut13 + stringOut14 + stringOut15 + stringOut16 + stringOut17)*0.3;
     
     return out;
+}
+
+void SanturTestAudioProcessor::timerCallback() {
+    for(int i = 0; i < 18; ++i) {
+        if (triggerProcess[i] == true) {
+            triggerProcess[i] = false;
+            currentActiveNotes = 0;
+        }
+    }
 }
 
 

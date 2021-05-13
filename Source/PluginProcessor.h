@@ -15,7 +15,7 @@
 //==============================================================================
 /**
 */
-class SanturTestAudioProcessor  : public juce::AudioProcessor
+class SanturTestAudioProcessor  : public juce::AudioProcessor, juce::Timer
 {
 public:
     //==============================================================================
@@ -70,6 +70,8 @@ public:
     void processAndUpdateStrings();
     double outputSound();
 
+    
+    void timerCallback() override;
     
     double stringLength = 0.5f;
     double B = 0.00031;
@@ -126,15 +128,19 @@ private:
     std::vector<double> rValues, aValues, iValues;
     
     std::vector<int> midiValues{48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65};
+//    std::vector<int> midiValues{51, 62, 53, 65, 55, 67, 57, 69, 58, 70, 60, 72, 62, 74, 63, 75, 65, 77};
     
     std::vector<bool> playNote{false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
+    
+    std::vector<bool> triggerProcess{false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false};
     
     double stringOut0, stringOut1, stringOut2, stringOut3,stringOut4, stringOut5, stringOut6, stringOut7,stringOut8, stringOut9, stringOut10, stringOut11, stringOut12, stringOut13, stringOut14, stringOut15, stringOut16, stringOut17, mainOut;
     
     double vel[18] = {0.0};
     double velocityFullRange, velocityNormalized;
-
-
+    
+    int maxActiveNotes = 6;
+    int currentActiveNotes = 0;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SanturTestAudioProcessor)
 };
