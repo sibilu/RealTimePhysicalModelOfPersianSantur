@@ -64,11 +64,18 @@ public:
     void setPluckLoc(float pluckLoc);
     void setOutPosition(double newOutPos);
     void setTension(double newTension);
-//    void setDetune(int detuneFactor);
+    void setDetune(int detuneFactor);
     
     void checkActiveNotes();
     void processAndUpdateStrings();
     double outputSound();
+    
+    void removeExpired();
+    void enqueue(int value);
+    void dequeue();
+    void displayQueue();
+    void showFront();
+    bool isEmpty();
 
     
     void timerCallback() override;
@@ -86,7 +93,8 @@ private:
     double pluckLoc = 0.7f;
     
     double s0 = 1.3f;
-    double s1 = 0.00060f;
+//    double s1 = 0.00060f;
+    double s1 = 0.001f;
     
     double damp, stiffness, stringDiameter, stringRadius;
     
@@ -141,6 +149,13 @@ private:
     
     int maxActiveNotes = 6;
     int currentActiveNotes = 0;
+    
+    int currentMidiNotes[6] = {0};
+    
+    
+    int A[6] = {0};
+    
+    
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SanturTestAudioProcessor)
 };

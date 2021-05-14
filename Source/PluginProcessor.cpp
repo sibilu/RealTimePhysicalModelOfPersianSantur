@@ -106,6 +106,13 @@ void SanturTestAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
     rValues.resize(18);
     aValues.resize(18);
     iValues.resize(18);
+    
+    enqueue(0);
+    enqueue(0);
+    enqueue(0);
+    enqueue(0);
+    enqueue(0);
+    enqueue(0);
 
     
     for(int i = 0; i < 18; ++i) {
@@ -262,25 +269,48 @@ void SanturTestAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
                     currentNote = previousNote;
                     previousNote = tempNote;
                     vel[n] = velocityNormalized;
-
-                    if(currentActiveNotes <= maxActiveNotes) {
+                    
+                    if (std::find(std::begin(A), std::end(A), message.getNoteNumber()) != std::end(A))
+                    {
+                        
+                       
                         playNote[n] = true;
                         triggerProcess[n] = true;
-
-                        if (currentNote != previousNote) {
-                            currentActiveNotes += 1;
-                            previousNote = currentNote;
-                            startTimer(7000);
-                        }
-//                        startTimer(7000);
-                        DBG("currentActiveNotes:");
-                        DBG(currentActiveNotes);
+//                        dequeue();
+//                        enqueue(message.getNoteNumber());
+                        startTimer(7000);
+                        
+                    } else {
+                        dequeue();
+                        enqueue(message.getNoteNumber());
+                        playNote[n] = true;
+                        triggerProcess[n] = true;
+                        
+                        startTimer(7000);
+                        
                     }
+                    
+                    displayQueue();
+                    
 
-                    DBG("currentNote:");
-                    DBG(currentNote);
-                    DBG("previousNote:");
-                    DBG(previousNote);
+//                    if(currentActiveNotes <= maxActiveNotes) {
+//                        playNote[n] = true;
+//                        triggerProcess[n] = true;
+//
+//                        if (currentNote != previousNote) {
+//                            currentActiveNotes += 1;
+//                            previousNote = currentNote;
+//                            startTimer(7000);
+//                        }
+////                        startTimer(7000);
+//                        DBG("currentActiveNotes:");
+//                        DBG(currentActiveNotes);
+//                    }
+//
+//                    DBG("currentNote:");
+//                    DBG(currentNote);
+//                    DBG("previousNote:");
+//                    DBG(previousNote);
                 }
             }
         }
@@ -364,9 +394,9 @@ void SanturTestAudioProcessor::setOutPosition(double newOutPos) {
     this-> outPos = newOutPos;
 }
 
-//void SanturTestAudioProcessor::setDetune(int detuneValue) {
+void SanturTestAudioProcessor::setDetune(int detuneValue) {
 //    this-> detuneValue = detuneValue;
-//}
+}
 
 
 // When we have 'hardcoded' strings, this function will not be needed
@@ -399,10 +429,7 @@ void SanturTestAudioProcessor::processAndUpdateStrings() {
         if(triggerProcess[i]) {
             santurStrings[i]->processScheme();
             santurStrings[i]->updateStates();
-//            triggerProcess[i] = false;
         }
-//        santurStrings[i]->processScheme();
-//        santurStrings[i]->updateStates();
     }
 }
 
@@ -438,6 +465,102 @@ void SanturTestAudioProcessor::timerCallback() {
         if (triggerProcess[i] == true) {
             triggerProcess[i] = false;
             currentActiveNotes = 0;
+            mainOut = 0.f;
+        }
+    }
+}
+
+
+using namespace std;
+#define SIZE 6
+int front = -1;
+int rear = -1;
+
+//Function to check if queue is empty or not
+bool SanturTestAudioProcessor::isEmpty()
+{
+    if(front == -1 && rear == -1)
+        return true;
+    else
+        return false;
+}
+
+//function to enter elements in queue
+void SanturTestAudioProcessor::enqueue ( int value )
+{
+    //queue is full
+    if ((rear + 1)%SIZE == front)
+        cout<<"Queue is full \n";
+    else
+    {
+        //first element inserted
+        if( front == -1)
+            front = 0;
+        //insert element at rear
+        rear = (rear+1)%SIZE;
+        A[rear] = value;
+        cout<<"addedElement: \n";
+        cout<<value<<" \n";
+    }
+}
+
+//function to delete/remove element from queue
+void SanturTestAudioProcessor::dequeue ( )
+{
+    if( isEmpty() )
+        cout<<"Queue is empty\n";
+    else
+        //only one element
+        if( front == rear ) {
+            front = rear = -1;
+        } else {
+            
+            for (int i = 0; i < 18; ++i) {
+                if(midiValues[i] == A[front]) {
+                    triggerProcess[i] = false;
+                }
+            }
+            cout<<"removedElement: \n";
+            cout<<A[front]<<" \n";
+            front = (front + 1)%SIZE;
+        }
+}
+
+//function to show the element at front
+void SanturTestAudioProcessor::showFront( )
+{
+    if( isEmpty())
+        cout<<"Queue is empty\n";
+    else
+        cout<<"element at front is:"<<A[front];
+}
+
+//function to display queue
+void SanturTestAudioProcessor::displayQueue()
+{
+    if(isEmpty())
+        cout<<"Queue is empty\n";
+    else
+    {
+        int i;
+        if( front <= rear )
+        {
+            
+            for( i=front ; i<= rear ; i++)
+                DBG("MIDI BUFFER:");
+                DBG(A[i]);
+        }
+        else {
+            i=front;
+            while( i < SIZE) {
+//                cout<<A[i]<<" \n";
+                i++;
+            }
+            i=0;
+            while( i <= rear) {
+//                cout<<A[i]<<" \n";
+                i++;
+            }
         }
     }
 }

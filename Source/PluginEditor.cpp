@@ -27,9 +27,11 @@ SanturTestAudioProcessorEditor::~SanturTestAudioProcessorEditor()
 void SanturTestAudioProcessorEditor::paint (juce::Graphics& g)
 {
 
-    g.fillAll (Colour(255,255,247));
+//    g.fillAll (Colour(255,255,247));
+    g.fillAll (juce::Colours::black);
     
-    g.setColour(juce::Colours::black);
+//    g.setColour(juce::Colours::black);
+    g.setColour(juce::Colours::white);
 
 
 }
@@ -147,10 +149,11 @@ void SanturTestAudioProcessorEditor::resized()
     excitationMenu.setSelectedId(2);
     addAndMakeVisible(excitationMenu);
     
-    excitationLabel.setText("Excitaiton", dontSendNotification);
+    excitationLabel.setText("Excitation", dontSendNotification);
     excitationLabel.attachToComponent(&excitationMenu, false);
     excitationLabel.setJustificationType(Justification::centred);
-    excitationLabel.setColour(Label::textColourId, Colour(juce::Colours::black));
+//    excitationLabel.setColour(Label::textColourId, Colour(juce::Colours::black));
+    excitationLabel.setColour(Label::textColourId, Colour(juce::Colours::white));
     addAndMakeVisible(excitationLabel);
 }
 
