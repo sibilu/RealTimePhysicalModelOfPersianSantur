@@ -204,7 +204,6 @@ void SanturTestAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
     santurStrings.add(std::move(string16));
     santurStrings.add(std::move(string17));
     santurStrings.add(std::move(string18));
-    DBG(santurStrings.size());
     DBG("sample rate:");
     DBG(fs);
     
@@ -254,30 +253,17 @@ void SanturTestAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
 
     for (const auto metadata : midiMessages) {
         auto message = metadata.getMessage();
-        int previousNote;
-        int currentNote;
-        int tempNote;
         
         if(message.isNoteOn()) {
             for (int n = 0; n < 18; n++){
                 if(message.getNoteNumber() == midiValues[n]) {
                     velocityFullRange = message.getVelocity();
                     velocityNormalized = (velocityFullRange/127);
-                    
-                    currentNote = message.getNoteNumber();
-                    tempNote = currentNote;
-                    currentNote = previousNote;
-                    previousNote = tempNote;
                     vel[n] = velocityNormalized;
                     
-                    if (std::find(std::begin(A), std::end(A), message.getNoteNumber()) != std::end(A))
-                    {
-                        
-                       
+                    if (std::find(std::begin(A), std::end(A), message.getNoteNumber()) != std::end(A)) {
                         playNote[n] = true;
                         triggerProcess[n] = true;
-//                        dequeue();
-//                        enqueue(message.getNoteNumber());
                         startTimer(7000);
                         
                     } else {
@@ -287,30 +273,8 @@ void SanturTestAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
                         triggerProcess[n] = true;
                         
                         startTimer(7000);
-                        
                     }
-                    
                     displayQueue();
-                    
-
-//                    if(currentActiveNotes <= maxActiveNotes) {
-//                        playNote[n] = true;
-//                        triggerProcess[n] = true;
-//
-//                        if (currentNote != previousNote) {
-//                            currentActiveNotes += 1;
-//                            previousNote = currentNote;
-//                            startTimer(7000);
-//                        }
-////                        startTimer(7000);
-//                        DBG("currentActiveNotes:");
-//                        DBG(currentActiveNotes);
-//                    }
-//
-//                    DBG("currentNote:");
-//                    DBG(currentNote);
-//                    DBG("previousNote:");
-//                    DBG(previousNote);
                 }
             }
         }

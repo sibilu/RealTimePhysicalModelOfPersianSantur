@@ -16,7 +16,7 @@ SanturTestAudioProcessorEditor::SanturTestAudioProcessorEditor (SanturTestAudioP
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
-    setSize (700, 350);
+    setSize (700, 591); // prev 700,350
 }
 
 SanturTestAudioProcessorEditor::~SanturTestAudioProcessorEditor()
@@ -28,16 +28,21 @@ void SanturTestAudioProcessorEditor::paint (juce::Graphics& g)
 {
 
 //    g.fillAll (Colour(255,255,247));
-    g.fillAll (juce::Colours::black);
+//    g.fillAll (juce::Colours::black);
+    Image background = ImageCache::getFromMemory(BinaryData::santur2_jpg, BinaryData::santur2_jpgSize);
+    g.drawImageAt(background,0, 0);
     
 //    g.setColour(juce::Colours::black);
     g.setColour(juce::Colours::white);
+    g.setFont(60.f);
+    g.drawText("The Santur", getLocalBounds(), Justification::centred, true);
 
 
 }
 
 void SanturTestAudioProcessorEditor::resized()
 {
+    
 
     // S1 DAMPING SLIDER
 //    s1DampingSlider.addListener(this);
