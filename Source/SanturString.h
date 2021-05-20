@@ -38,4 +38,5 @@ class SanturString {
     std::unique_ptr<DampedString> string1;
     std::unique_ptr<DampedString> string2;
     std::unique_ptr<DampedString> string3;
+    std::unique_ptr<DampedString> string4;
 };

@@ -22,7 +22,7 @@ SanturTestAudioProcessor::SanturTestAudioProcessor()
                   )
 #endif
 {
-    
+
 }
 
 SanturTestAudioProcessor::~SanturTestAudioProcessor()
@@ -99,9 +99,26 @@ void SanturTestAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
     
 //    santurStrings.reserve(18);
 //    stringOuts.resize(18);
+    
+
+    juce::dsp::ProcessSpec spec;
+    spec.sampleRate = getSampleRate();
+    spec.maximumBlockSize = samplesPerBlock;
+    spec.numChannels = getTotalNumOutputChannels();
+    juceConvolution.prepare(spec);
+    mixer.prepare(spec);
+    juceConvolution.reset();
+    mixer.reset();
+    
+    mixer.setWetMixProportion(1.f);
+
+//    juceConvolution.loadImpulseResponse(BinaryData::impulse_wav, BinaryData::impulse_wav, dsp::Convolution::Stereo::no, dsp::Convolution::Trim::yes, 0);
+    juceConvolution.loadImpulseResponse(BinaryData::impulse_wav, BinaryData::impulse_wavSize, dsp::Convolution::Stereo::yes, dsp::Convolution::Trim::no, 0);
   
 
     DBG("prepareToPlay Called");
+
+
     
     rValues.resize(18);
     aValues.resize(18);
@@ -208,6 +225,10 @@ void SanturTestAudioProcessor::prepareToPlay (double sampleRate, int samplesPerB
     DBG(fs);
     
     
+    int irSize = juceConvolution.getCurrentIRSize();
+    DBG("IR Size: ");
+    
+    DBG(irSize);
     
 }
 
@@ -281,10 +302,18 @@ void SanturTestAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
     }
     
     checkActiveNotes();
+
     
     for (auto i = totalNumInputChannels; i < totalNumOutputChannels; ++i)
         buffer.clear (i, 0, buffer.getNumSamples());
     
+//    const auto numChannels = juce::jmax (totalNumInputChannels, totalNumOutputChannels);
+//    auto audioBlock = dsp::AudioBlock<float> (buffer).getSubsetChannelBlock(0, (size_t) numChannels);
+//    auto context = dsp::ProcessContextReplacing<float> (audioBlock);
+//    const auto& input = context.getInputBlock();
+//    auto& output = context.getOutputBlock();
+//    juceConvolution.process(juce::dsp::ProcessContextReplacing<float> (output));
+//    mixer.pushDrySamples(input);
     
     // ..do something to the data...
     float* const channelData1 = buffer.getWritePointer(0);
@@ -295,10 +324,15 @@ void SanturTestAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, j
         
         mainOut = outputSound();
         
+////        double vin = output.getSample(0, i);
+//        output.setSample(channelData1[i], i, mainOut);
+//        output.setSample(channelData2[i], i, mainOut);
+//
         channelData1[i] = limit(mainOut, -1.f, 1.f);
         channelData2[i] = limit(mainOut, -1.f, 1.f);
         
     }
+//    mixer.mixWetSamples(output);
 }
 
 //==============================================================================
@@ -463,8 +497,8 @@ void SanturTestAudioProcessor::enqueue ( int value )
         //insert element at rear
         rear = (rear+1)%SIZE;
         A[rear] = value;
-        cout<<"addedElement: \n";
-        cout<<value<<" \n";
+//        cout<<"addedElement: \n";
+//        cout<<value<<" \n";
     }
 }
 
@@ -484,8 +518,8 @@ void SanturTestAudioProcessor::dequeue ( )
                     triggerProcess[i] = false;
                 }
             }
-            cout<<"removedElement: \n";
-            cout<<A[front]<<" \n";
+//            cout<<"removedElement: \n";
+//            cout<<A[front]<<" \n";
             front = (front + 1)%SIZE;
         }
 }
@@ -510,9 +544,9 @@ void SanturTestAudioProcessor::displayQueue()
         if( front <= rear )
         {
             
-            for( i=front ; i<= rear ; i++)
-                DBG("MIDI BUFFER:");
-                DBG(A[i]);
+//            for( i=front ; i<= rear ; i++)
+//                DBG("MIDI BUFFER:");
+//                DBG(A[i]);
         }
         else {
             i=front;

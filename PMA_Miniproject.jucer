@@ -20,6 +20,11 @@
             file="Source/PluginEditor.cpp"/>
       <FILE id="c2IANB" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
     </GROUP>
+    <FILE id="cXNSpj" name="Santur.jpeg" compile="0" resource="1" file="../Desktop/Santur.jpeg"/>
+    <FILE id="XIDE0v" name="santur2.jpg" compile="0" resource="1" file="../Desktop/santur2.jpg"/>
+    <FILE id="PK5WRy" name="singleimpulse.aif" compile="0" resource="1"
+          file="../Library/Mobile Documents/com~apple~CloudDocs/AAU/Master/2. Semester/Semester Project/IR/singleimpulse.aif"/>
+    <FILE id="wspfV1" name="impulse.wav" compile="0" resource="1" file="../Library/Mobile Documents/com~apple~CloudDocs/AAU/Master/2. Semester/Semester Project/IR/impulse.wav"/>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
   <EXPORTFORMATS>
@@ -41,6 +46,7 @@
         <MODULEPATH id="juce_graphics" path="../../../../../../../../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_basics" path="../../../../../../../../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../../../../../../../../JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../JUCE/modules"/>
       </MODULEPATHS>
     </XCODE_MAC>
   </EXPORTFORMATS>
@@ -54,6 +60,7 @@
     <MODULE id="juce_audio_utils" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="1"/>

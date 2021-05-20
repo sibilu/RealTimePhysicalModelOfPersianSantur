@@ -152,9 +152,20 @@ private:
     
     int currentMidiNotes[6] = {0};
     
+    WavAudioFormat wavFormat;
+    
+    
+    
     
     int A[6] = {0};
     
+//    juce::dsp::ProcessorChain<juce::dsp::Convolution> processorChain;
+    juce::dsp::Convolution juceConvolution;
+    juce::dsp::DryWetMixer<float> mixer;
+    
+    enum {
+        convolutionIndex
+    };
     
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SanturTestAudioProcessor)
