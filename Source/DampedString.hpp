@@ -24,17 +24,8 @@ public:
     void updateMass();
 
     void setPluckLoc(double pluckLoc);
-    void setOutLoc(double outLoc);
-    
-    void setDamping(double s1);
-    void setTension(double newTension);
 
-    void updateCoefficientsBrass();
-    void updateCoefficientsSteel();
-
-    void exciteHann();
-    void exciteTri();
-    void exciteHammer();
+    void excite(int exciteSelection, double velocity);
     
     double getOutput(double outPos);
     

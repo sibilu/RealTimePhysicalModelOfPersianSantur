@@ -8,11 +8,11 @@
     <key>CFBundleIconFile</key>
     <string></string>
     <key>CFBundleIdentifier</key>
-    <string>com.yourcompany.SanturTest</string>
+    <string>com.yourcompany.SanturTestAllStrings</string>
     <key>CFBundleName</key>
-    <string>SanturTest</string>
+    <string>SanturTestAllStrings</string>
     <key>CFBundleDisplayName</key>
-    <string>SanturTest</string>
+    <string>SanturTestAllStrings</string>
     <key>CFBundlePackageType</key>
     <string>BNDL</string>
     <key>CFBundleSignature</key>
@@ -29,15 +29,15 @@
     <array>
       <dict>
         <key>name</key>
-        <string>yourcompany: SanturTest</string>
+        <string>yourcompany: SanturTestAllStrings</string>
         <key>description</key>
-        <string>SanturTest</string>
+        <string>SanturTestAllStrings</string>
         <key>factoryFunction</key>
-        <string>SanturTestAUFactory</string>
+        <string>SanturTestAllStringsAUFactory</string>
         <key>manufacturer</key>
         <string>Manu</string>
         <key>type</key>
-        <string>aumf</string>
+        <string>aumu</string>
         <key>subtype</key>
         <string>Nsob</string>
         <key>version</key>

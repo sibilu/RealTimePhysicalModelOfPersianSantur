@@ -38,10 +38,10 @@
  #define JucePlugin_Enable_IAA             0
 #endif
 #ifndef  JucePlugin_Name
- #define JucePlugin_Name                   "SanturTest"
+ #define JucePlugin_Name                   "SanturTestAllStrings"
 #endif
 #ifndef  JucePlugin_Desc
- #define JucePlugin_Desc                   "SanturTest"
+ #define JucePlugin_Desc                   "SanturTestAllStrings"
 #endif
 #ifndef  JucePlugin_Manufacturer
  #define JucePlugin_Manufacturer           "yourcompany"
@@ -59,7 +59,7 @@
  #define JucePlugin_PluginCode             0x4e736f62
 #endif
 #ifndef  JucePlugin_IsSynth
- #define JucePlugin_IsSynth                0
+ #define JucePlugin_IsSynth                1
 #endif
 #ifndef  JucePlugin_WantsMidiInput
  #define JucePlugin_WantsMidiInput         1
@@ -86,31 +86,31 @@
  #define JucePlugin_VSTUniqueID            JucePlugin_PluginCode
 #endif
 #ifndef  JucePlugin_VSTCategory
- #define JucePlugin_VSTCategory            kPlugCategEffect
+ #define JucePlugin_VSTCategory            kPlugCategSynth
 #endif
 #ifndef  JucePlugin_Vst3Category
- #define JucePlugin_Vst3Category           "Fx"
+ #define JucePlugin_Vst3Category           "Instrument|Synth"
 #endif
 #ifndef  JucePlugin_AUMainType
- #define JucePlugin_AUMainType             'aumf'
+ #define JucePlugin_AUMainType             'aumu'
 #endif
 #ifndef  JucePlugin_AUSubType
  #define JucePlugin_AUSubType              JucePlugin_PluginCode
 #endif
 #ifndef  JucePlugin_AUExportPrefix
- #define JucePlugin_AUExportPrefix         SanturTestAU
+ #define JucePlugin_AUExportPrefix         SanturTestAllStringsAU
 #endif
 #ifndef  JucePlugin_AUExportPrefixQuoted
- #define JucePlugin_AUExportPrefixQuoted   "SanturTestAU"
+ #define JucePlugin_AUExportPrefixQuoted   "SanturTestAllStringsAU"
 #endif
 #ifndef  JucePlugin_AUManufacturerCode
  #define JucePlugin_AUManufacturerCode     JucePlugin_ManufacturerCode
 #endif
 #ifndef  JucePlugin_CFBundleIdentifier
- #define JucePlugin_CFBundleIdentifier     com.yourcompany.SanturTest
+ #define JucePlugin_CFBundleIdentifier     com.yourcompany.SanturTestAllStrings
 #endif
 #ifndef  JucePlugin_RTASCategory
- #define JucePlugin_RTASCategory           0
+ #define JucePlugin_RTASCategory           2048
 #endif
 #ifndef  JucePlugin_RTASManufacturerCode
  #define JucePlugin_RTASManufacturerCode   JucePlugin_ManufacturerCode
@@ -125,7 +125,7 @@
  #define JucePlugin_RTASDisableMultiMono   0
 #endif
 #ifndef  JucePlugin_AAXIdentifier
- #define JucePlugin_AAXIdentifier          com.yourcompany.SanturTest
+ #define JucePlugin_AAXIdentifier          com.yourcompany.SanturTestAllStrings
 #endif
 #ifndef  JucePlugin_AAXManufacturerCode
  #define JucePlugin_AAXManufacturerCode    JucePlugin_ManufacturerCode
@@ -134,7 +134,7 @@
  #define JucePlugin_AAXProductId           JucePlugin_PluginCode
 #endif
 #ifndef  JucePlugin_AAXCategory
- #define JucePlugin_AAXCategory            0
+ #define JucePlugin_AAXCategory            2048
 #endif
 #ifndef  JucePlugin_AAXDisableBypass
  #define JucePlugin_AAXDisableBypass       0
@@ -143,13 +143,13 @@
  #define JucePlugin_AAXDisableMultiMono    0
 #endif
 #ifndef  JucePlugin_IAAType
- #define JucePlugin_IAAType                0x6175726d
+ #define JucePlugin_IAAType                0x61757269
 #endif
 #ifndef  JucePlugin_IAASubType
  #define JucePlugin_IAASubType             JucePlugin_PluginCode
 #endif
 #ifndef  JucePlugin_IAAName
- #define JucePlugin_IAAName                "yourcompany: SanturTest"
+ #define JucePlugin_IAAName                "yourcompany: SanturTestAllStrings"
 #endif
 #ifndef  JucePlugin_VSTNumMidiInputs
  #define JucePlugin_VSTNumMidiInputs       16

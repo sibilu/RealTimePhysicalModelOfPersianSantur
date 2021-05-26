@@ -8,11 +8,11 @@
     <key>CFBundleIconFile</key>
     <string></string>
     <key>CFBundleIdentifier</key>
-    <string>com.yourcompany.SanturTest</string>
+    <string>com.yourcompany.SanturTestAllStrings</string>
     <key>CFBundleName</key>
-    <string>SanturTest</string>
+    <string>SanturTestAllStrings</string>
     <key>CFBundleDisplayName</key>
-    <string>SanturTest</string>
+    <string>SanturTestAllStrings</string>
     <key>CFBundlePackageType</key>
     <string>BNDL</string>
     <key>CFBundleSignature</key>
